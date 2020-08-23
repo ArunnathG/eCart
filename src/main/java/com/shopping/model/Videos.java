@@ -3,12 +3,19 @@ package com.shopping.model;
 public class Videos {
 
 
-public String getId(){return id;}
-public void setId(String id) {
+public Integer getId(){return id;}
+public void setId(Integer id) {
 	// TODO Auto-generated method stub
 {this.id = id;}
 }
 
+public Videos(Integer id, String description, String name, Integer price) {
+	super();
+	this.id = id;
+	this.description = description;
+	this.name = name;
+	this.price = price;
+}
 public String getName(){return name;}
 
 public void setName(String name) {
@@ -23,7 +30,15 @@ public void setPrice(Integer price) {
 	{this.price = price;}
 }
 
-private String id;
+private Integer id;
+private String description;
+public String getDescription() {
+	return description;
+}
+public void setDescription(String description) {
+	this.description = description;
+}
+
 private String name;
 private Integer price;
 }

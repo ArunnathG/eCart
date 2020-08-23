@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.shopping.model.Videos;
-import com.shopping.services.getVideosService;
 
 
 
@@ -42,12 +41,16 @@ public class LoginController
 			String registeredUserId = (String) session.getAttribute("registerUserid");
 			String registeredPassword = (String) session.getAttribute("registerPassword");
 			
-			if((userid.equals(registeredUserId) & password.equals(registeredPassword)) || (userid.equals("admin") & password.equals("admin"))) {
+			if((userid.equals(registeredUserId) & password.equals(registeredPassword))) {
 				
 				session.setAttribute("userid", userid);
 
 				response.sendRedirect("./userHome");
-			} else {
+			} else if((userid.equals("admin") & password.equals("admin"))) 
+			{
+				response.sendRedirect("./adminhome");
+			}
+			else {
 				String loginError = "Invalid data";
 				request.setAttribute("loginError", loginError);
 				request.getRequestDispatcher("login.jsp").forward(request, response);
