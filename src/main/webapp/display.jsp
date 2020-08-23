@@ -9,6 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-therrrrerr :${result}
+therrrrerr 
 </body>
 </html>
