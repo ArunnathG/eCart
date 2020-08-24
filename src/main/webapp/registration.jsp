@@ -3,9 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login | cart</title>
-
-    <style type="text/css">
+ <style type="text/css">
     .formBackground {
 	    width: 70%;
 	    border: 0.5rem solid #888888;
@@ -53,31 +51,34 @@
 </head>
 <body>
 
-<h2>Login</h2>
-<p>Login with username & password</p>
-<hr>
-
-<p class="error" id="error">${loginError}</p>
-
-<form action="login" class="formBackground" method="post">
+<p class="error" id="error">${registrationError}</p>
+<form action="register" class="formBackground" method="post">
 
 	<div class="field">
 		<label for="userName" class="label"> user Name</label>
- 		<input type="text" class="input" name="userName" id="userName" required/>
+ 		<input type="text" class="input" name="userName" id="userName" maxlength="30" required/>
+	</div>
+	
+	<div class="field">
+		<label for="email" class="label">Email Address</label>
+ 		<input type="text" class="input" name="email" id="email" maxlength="30" required/>
 	</div>
 
 	<div class="field">
 		<label for="password" class="label">Password</label>
-		<input type="password" class="input" name="password" id="password" required/>
+		<input type="password" class="input" name="password" id="password" maxlength="30" required/>
 	</div>
 	
 	<div class="field">
-		<button type="submit" id="login" class="button"> Login</button>
-		<a href="register" id="register" class="link">Register</a>
+		<label for="confirmPassword" class="label">Password Confirmation</label>
+		<input type="password" class="input" name="confirmPassword" id="confirmPassword" maxlength="30" required/>
+	</div>
+	
+	<div class="field">
+		<button type="submit" id="register" class="button"> Register</button>
 	</div>
  
 
 </form>
-
 </body>
 </html>

@@ -9,15 +9,15 @@
 <body>
 
 <hr>
-<a href="./ProfileServlet">Home</a>
+<a href="userhome">Home</a>
 
-<span>Basket: <%= request.getParameter("totalCount")%> video(s) <%= request.getParameter("totalPrice")%>
+<span>Basket: 
 </span>
 <a href="./MyAccountServlet">My Account</a> <br/>
 
 <a href="cartServlet">Checkout</a> <br/>
  
- <a href="./LogoutServlet">Logout</a>
+ <a href="logout">Logout</a>
 
 <hr>
 

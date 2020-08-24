@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    
+    pageEncoding="ISO-8859-1" isELIgnored="false"%>
+     <%@ taglib prefix = "c" uri = "http://java.sun.com/jstl/core_rt"%>
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -10,44 +10,71 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <style type="text/css">
+    .sectionBackground {
+	    width: 70%;
+	    background: aliceblue;
+	    padding: 50px;
+	    margin: 0 auto;
+	    margin-bottom: 50px;
+	   -webkit-box-shadow: 3px 3px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;  /* Firefox 3.5 - 3.6 */
+  box-shadow:         3px 3px 5px 6px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+    }
+    .price {
+    float: right;
+    }
+	</style>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
 
+<script language="javascript" type="text/javascript">
 
-<% 	List<Videos> videos  = (ArrayList<Videos>)request.getAttribute("videos"); %>
-<table border="1">
-		<tr>
-			<th>id</th>
-			<th>name</th>
-			<th>price</th>
-		</tr>
-		
-		<%
-// Iterating through subjectList
+function addToCart(pageURL) {
 
-if(videos != null)  // Null check for the object
-{
-	Iterator<Videos> iterator = videos.iterator();  // Iterator interface
-	
-	while(iterator.hasNext())  // iterate through all the data until the last record
-	{
-		Videos videoDetails = iterator.next(); //assign individual employee record to the employee class object
-	%>
-	<tr><td><%=videoDetails.getId()%></td>
-		<td><%=videoDetails.getName()%></td>
-		<td><%=videoDetails.getPrice()%></td>
-		<td> 
-		<a href="cartServlet?action=add&id=<%=videoDetails.getId()%>">add</a>
-		 
-		</td>
-	</tr>
-	<%
-	}
+	 window.location = pageURL;
 }
-%>
+</script>
+<hr>
+<a href="userhome">Home</a>
 
+<span>Basket: ${totalCount} video(s)
+</span>
+<a href="./MyAccountServlet">My Account</a> <br/>
 
+<a href="checkout">Checkout</a> <br/>
+ 
+ <a href="logout">Logout</a>
+
+<hr>
+
+<%
+	if ((List<Videos>) session.getAttribute("videos") !=null) 
+	{
+		%>
+	<div>
+			
+	<c:forEach var ="videos"  items = "${videos}">
+	
+	<section class="sectionBackground">
+         song-<c:out value = "${videos.getId()}"/>  
+       <span class="price">  <c:out value = "${videos.getPrice()}"/> </span> <p>
+         <c:out value = "${videos.getName()}"/> 
+          <c:out value = "${videos.getDescription()}"/> 
+         <input type="button" onclick="addToCart('userhome?action=add&id=${videos.getId()}');" value="Add to cart" />
+     
+	</section>
+	</c:forEach>
+	</div>
+
+		<%
+	} else {
+		%>
+		<p>no</p>
+	<%	
+	}
+	%>
 </body>
 </html>

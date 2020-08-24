@@ -23,7 +23,7 @@ import com.shopping.model.Videos;
 public class adminHomeController {
 
 	@RequestMapping("/adminhome")
-	public void userHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	public void adminHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		HttpSession session = request.getSession();
 	

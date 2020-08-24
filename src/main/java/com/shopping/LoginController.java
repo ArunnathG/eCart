@@ -45,7 +45,7 @@ public class LoginController
 				
 				session.setAttribute("userid", userid);
 
-				response.sendRedirect("./userHome");
+				response.sendRedirect("./userhome");
 			} else if((userid.equals("admin") & password.equals("admin"))) 
 			{
 				response.sendRedirect("./adminhome");

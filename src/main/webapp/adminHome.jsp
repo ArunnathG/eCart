@@ -14,6 +14,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+<hr>
+<a href="adminhome">Home</a>
+
+ <a href="logout">Logout</a>
+
+<hr>
 <% 	Integer i = 0; %>
 	<%
 	if ((List<Videos>) session.getAttribute("videos") !=null) 
@@ -23,6 +29,7 @@
 			<tr>
 				<th>ProductId</th>
 				<th>Name</th>
+				<th>Description</th>
 				<th>Price</th>
 				<th>Action</th>
 			</tr>
@@ -31,6 +38,7 @@
 	<tr>
          <td> <c:out value = "${videos.getId()}"/>  </td> 
          <td> <c:out value = "${videos.getName()}"/> </td>
+          <td> <c:out value = "${videos.getDescription()}"/> </td>
           <td><c:out value = "${videos.getPrice()}"/> </td>
           <td><a  href="adminhome?action=delete&id=<%=i-1%>">Delete</a></td>
 	 </tr>
