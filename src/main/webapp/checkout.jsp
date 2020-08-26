@@ -59,9 +59,17 @@ function removeFromCart(pageURL)
 	 window.location = pageURL;
 	}
 </script>
+
+
 <hr>
 <a href="userhome">Home</a>
 
+<span>Basket: ${totalCount} video(s)
+</span>
+<a href="myaccount">My Account</a> <br/>
+
+<a href="checkout">Checkout</a> <br/>
+ 
  <a href="logout">Logout</a>
 
 <hr>
@@ -70,8 +78,9 @@ function removeFromCart(pageURL)
 <h2>Video Basket</h2>
 
 <% 	Integer i = 0; %>
+<% 	List<CartItems> cart = (List<CartItems>) session.getAttribute("cartItems"); %>
 	<%
-	if ((List<Videos>) session.getAttribute("cartItems") !=null & ((List<Videos>) session.getAttribute("cartItems")).size() !=0 ) 
+	if (cart !=null && !cart.isEmpty()) 
 	{
 		%>
 		

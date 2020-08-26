@@ -23,7 +23,7 @@ import com.shopping.model.Videos;
 public class adminHomeController {
 
 	@RequestMapping("/adminhome")
-	public void adminHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	public String adminHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		HttpSession session = request.getSession();
 	
@@ -34,11 +34,14 @@ public class adminHomeController {
 				List<Videos> videos =(List<Videos>) session.getAttribute("videos");
 				videos.remove(id);
 				session.setAttribute("videos", videos);
-				request.getRequestDispatcher("adminHome.jsp").forward(request, response);
+				response.sendRedirect("adminhome");
 			}
 		} else {
-			request.getRequestDispatcher("adminHome.jsp").forward(request, response);
+			List<Videos> videos =(List<Videos>) session.getAttribute("videos");
+			session.setAttribute("videos", videos);
+			return "adminHome.jsp";
 		}
+		return null;
 		
 	}
 	

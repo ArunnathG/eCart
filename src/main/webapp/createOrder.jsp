@@ -57,6 +57,12 @@
 <hr>
 <a href="userhome">Home</a>
 
+<span>Basket: ${totalCount} video(s)
+</span>
+<a href="myaccount">My Account</a> <br/>
+
+<a href="checkout">Checkout</a> <br/>
+ 
  <a href="logout">Logout</a>
 
 <hr>

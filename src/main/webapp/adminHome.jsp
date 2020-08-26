@@ -22,8 +22,9 @@
 <hr>
 <h2>Manage videos</h2>
 <% 	Integer i = 0; %>
+<% 	List<Videos> Videos = (List<Videos>) session.getAttribute("videos"); %>
 	<%
-	if ((List<Videos>) session.getAttribute("videos") !=null) 
+	if (Videos !=null && !Videos.isEmpty()) 
 	{
 		%>
 		<table border="1">

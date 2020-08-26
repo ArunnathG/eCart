@@ -24,7 +24,7 @@ import com.shopping.model.Orders;
 public class UserHomeController {
 
 	@RequestMapping("/userhome")
-	public String userHome(HttpServletRequest request, HttpServletResponse response)
+	public String userHome(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		if ( request.getParameter("action") != null) {
 			String action = request.getParameter("action");
@@ -60,9 +60,7 @@ public class UserHomeController {
 					session.setAttribute("totalCount", getCount(cart));
 					session.setAttribute("totalPrice", getTotalPrice(cart));
 				}
-				
-				
-				return "userHome.jsp";
+				response.sendRedirect("userhome");
 			}
 		}
 		return "userHome.jsp";
@@ -100,19 +98,24 @@ private int getTotalPrice(List<CartItems> cart) {
 }
 
 	@RequestMapping("/checkout")
-	public String checkOut(HttpServletRequest request, HttpServletResponse response) {
+	public String checkOut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		HttpSession session = request.getSession();
 		if ( request.getParameter("action") != null) {
 			String action = request.getParameter("action");
 			if(action.equalsIgnoreCase("delete")) {
 				int id = Integer.parseInt(request.getParameter("id"));
-				HttpSession session = request.getSession();
+				
 				List<CartItems> cart =(List<CartItems>) session.getAttribute("cartItems");
 				cart.remove(id);
 				session.setAttribute("cartItems", cart);
 				session.setAttribute("totalCount", getCount((List<CartItems>) session.getAttribute("cartItems")));
 				session.setAttribute("totalPrice", getTotalPrice((List<CartItems>) session.getAttribute("cartItems")));
 			}
+			response.sendRedirect("checkout");
 		}
+		List<CartItems> cart =(List<CartItems>) session.getAttribute("cartItems");
+		session.setAttribute("cartItems", cart);
 		return "checkout.jsp";
 	}
 	@RequestMapping("/ordercreation")
@@ -173,7 +176,11 @@ private int getTotalPrice(List<CartItems> cart) {
 	}
 	
 	
-	
+	@RequestMapping("/myaccount")
+	public String myaccount()
+	{
+		return "account.jsp";
+	}
 	
 	public String validateOrder(String name, String address, String city, String country, String pin) {
 		String Error = "";

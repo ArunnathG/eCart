@@ -43,7 +43,7 @@ function addToCart(pageURL) {
 
 <span>Basket: ${totalCount} video(s)
 </span>
-<a href="./MyAccountServlet">My Account</a> <br/>
+<a href="myaccount">My Account</a> <br/>
 
 <a href="checkout">Checkout</a> <br/>
  
@@ -51,8 +51,9 @@ function addToCart(pageURL) {
 
 <hr>
 <% 	Integer i = 0; %>
+<% 	List<Videos> Videos = (List<Videos>) session.getAttribute("videos"); %>
 <%
-	if ((List<Videos>) session.getAttribute("videos") !=null) 
+	if (Videos !=null && !Videos.isEmpty()) 
 	{
 		%>
 	<div>
