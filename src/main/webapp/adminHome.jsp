@@ -20,6 +20,7 @@
  <a href="logout">Logout</a>
 
 <hr>
+<h2>Manage videos</h2>
 <% 	Integer i = 0; %>
 	<%
 	if ((List<Videos>) session.getAttribute("videos") !=null) 
@@ -29,18 +30,17 @@
 			<tr>
 				<th>ProductId</th>
 				<th>Name</th>
-				<th>Description</th>
 				<th>Price</th>
 				<th>Action</th>
 			</tr>
 	<c:forEach var ="videos"  items ="${videos}">
 	<% 	i++; %>
 	<tr>
-         <td> <c:out value = "${videos.getId()}"/>  </td> 
-         <td> <c:out value = "${videos.getName()}"/> </td>
-          <td> <c:out value = "${videos.getDescription()}"/> </td>
-          <td><c:out value = "${videos.getPrice()}"/> </td>
-          <td><a  href="adminhome?action=delete&id=<%=i-1%>">Delete</a></td>
+	
+         <td> <label id="prod_<%=i %>"><c:out value = "${videos.getId()}"/>  </label></td> 
+         <td><label id="name_<%=i %>"> <c:out value = "${videos.getName()}"/></label> </td>
+          <td><label id="price_<%=i %>"><c:out value = "${videos.getPrice()}"/> </label></td>
+          <td><a id="delete_<%=i %>>" href="adminhome?action=delete&id=<%=i-1%>">Delete</a></td>
 	 </tr>
 	</c:forEach>
 	</table>
@@ -48,7 +48,7 @@
 		<%
 	} else {
 		%>
-		<p>no</p>
+		<div id="message">No data to display</div>
 	<%	
 	}
 	%>

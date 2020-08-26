@@ -36,6 +36,7 @@ function addToCart(pageURL) {
 
 	 window.location = pageURL;
 }
+
 </script>
 <hr>
 <a href="userhome">Home</a>
@@ -49,7 +50,7 @@ function addToCart(pageURL) {
  <a href="logout">Logout</a>
 
 <hr>
-
+<% 	Integer i = 0; %>
 <%
 	if ((List<Videos>) session.getAttribute("videos") !=null) 
 	{
@@ -57,22 +58,24 @@ function addToCart(pageURL) {
 	<div>
 			
 	<c:forEach var ="videos"  items = "${videos}">
-	
+	<% 	i++; %>
 	<section class="sectionBackground">
-         song-<c:out value = "${videos.getId()}"/>  
-       <span class="price">  <c:out value = "${videos.getPrice()}"/> </span> <p>
-         <c:out value = "${videos.getName()}"/> 
-          <c:out value = "${videos.getDescription()}"/> 
+       
+       <label class="price" id="name_<%=i %>">  <c:out value = "${videos.getPrice()}"/> </label> 
+        <label id="name_<%=i %>"> <c:out value = "${videos.getName()}"/> </label> <p>
+          <label id="desc_<%=i %>">  <c:out value = "${videos.getDescription()}"/> </label>
          <input type="button" onclick="addToCart('userhome?action=add&id=${videos.getId()}');" value="Add to cart" />
      
 	</section>
 	</c:forEach>
+	
 	</div>
 
 		<%
 	} else {
 		%>
-		<p>no</p>
+		<div>No videos to display</div>
+		
 	<%	
 	}
 	%>

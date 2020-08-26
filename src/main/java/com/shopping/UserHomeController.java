@@ -11,11 +11,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.shopping.model.Videos;
 
 import com.shopping.model.CartItems;
+import com.shopping.model.Orders;
 
 
 @Controller
@@ -30,7 +32,6 @@ public class UserHomeController {
 				int id = Integer.parseInt(request.getParameter("id"));
 				HttpSession session = request.getSession();
 				List<Videos> videos =(List<Videos>) session.getAttribute("videos");
-				System.out.println("id" + id);
 				Videos cartVideo = videos.get(id-1);
 				
 				
@@ -113,5 +114,77 @@ private int getTotalPrice(List<CartItems> cart) {
 			}
 		}
 		return "checkout.jsp";
+	}
+	@RequestMapping("/ordercreation")
+	public String orderCreation()
+	{
+		return "createOrder.jsp";
+	}
+	
+	@RequestMapping(value="/ordercreation",  method=RequestMethod.POST)
+	public ModelAndView ordercreation(HttpServletRequest request, HttpServletResponse response)
+	{
+		HttpSession session = request.getSession();
+		int totalItems = (int) session.getAttribute("totalCount");
+		int totalCost = (int) session.getAttribute("totalPrice");
+		String orderId = "INV-";
+		
+		
+		String name = request.getParameter("name");
+		String address = request.getParameter("address");
+		String city = request.getParameter("city");
+		String country = request.getParameter("country");
+		String pin = request.getParameter("pinCode");
+		
+		String Error = validateOrder(name,address, city, country, pin);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName( "createOrder.jsp");
+		if(Error == "") 
+		{
+			if(session.getAttribute("orders") == null) {
+				
+				
+				List<Orders> orders = new ArrayList<Orders>();
+				
+				orders.add(new Orders(orderId, totalItems, totalCost));
+				
+				session.setAttribute("orders", orders);
+				
+			} else {
+				
+				
+				List<Orders> orders = (List<Orders>) session.getAttribute("orders");
+			
+				orders.add(new Orders(orderId, totalItems, totalCost));
+				session.setAttribute("orders", orders);
+			}
+			session.removeAttribute("cartItems");
+			session.removeAttribute("totalCount");
+			session.removeAttribute("totalPrice");
+			String orderSuccess = "Order placed successfully";
+		
+			
+			mv.addObject("orderSuccess", orderSuccess);
+		} else {
+			mv.addObject("orderError", Error);
+		}
+		
+		return mv;
+	}
+	
+	
+	
+	
+	public String validateOrder(String name, String address, String city, String country, String pin) {
+		String Error = "";
+		
+		if(name.length() < 5 || address.length() < 5 || city.length() < 5 || country.length() < 5
+				
+				|| pin.length() < 5 || pin.length()  > 6)
+		{
+			Error = "invalid data";
+		}
+		
+		return Error;
 	}
 }
