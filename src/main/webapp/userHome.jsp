@@ -50,7 +50,12 @@ function addToCart(pageURL) {
  <a href="logout">Logout</a>
 
 <hr>
-<% 	Integer i = 0; %>
+<% 	Integer i = 0; 
+	response.setHeader("Cache-Control", "no-cache , no-store, must-revalidate" );
+	if(session.getAttribute("userid") == null) {
+		response.sendRedirect("login");
+	}
+%>
 <% 	List<Videos> Videos = (List<Videos>) session.getAttribute("videos"); %>
 <%
 	if (Videos !=null && !Videos.isEmpty()) 
@@ -65,7 +70,7 @@ function addToCart(pageURL) {
        <label class="price" id="name_<%=i %>">  <c:out value = "${videos.getPrice()}"/> </label> 
         <label id="name_<%=i %>"> <c:out value = "${videos.getName()}"/> </label> <p>
           <label id="desc_<%=i %>">  <c:out value = "${videos.getDescription()}"/> </label>
-         <input type="button" onclick="addToCart('userhome?action=add&id=${videos.getId()}');" value="Add to cart" />
+         <input type="button" onclick="addToCart('userhome?action=add&id=${videos.getId()}&pos=<%= i %>');" value="Add to cart" />
      
 	</section>
 	</c:forEach>

@@ -30,9 +30,10 @@ public class UserHomeController {
 			String action = request.getParameter("action");
 			if(action.equalsIgnoreCase("add")) {
 				int id = Integer.parseInt(request.getParameter("id"));
+				int position = Integer.parseInt(request.getParameter("pos"));
 				HttpSession session = request.getSession();
 				List<Videos> videos =(List<Videos>) session.getAttribute("videos");
-				Videos cartVideo = videos.get(id-1);
+				Videos cartVideo = videos.get(position-1);
 				
 				
 				if(session.getAttribute("cartItems") == null) {
@@ -118,6 +119,7 @@ private int getTotalPrice(List<CartItems> cart) {
 		session.setAttribute("cartItems", cart);
 		return "checkout.jsp";
 	}
+	
 	@RequestMapping("/ordercreation")
 	public String orderCreation()
 	{

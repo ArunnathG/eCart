@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,7 +52,15 @@
 <body>
 
 
+<% 
+	response.setHeader("Cache-Control", "no-cache , no-store, must-revalidate" );
+	if(session.getAttribute("adminid") == null) {
+		response.sendRedirect("login");
+	}
+%>
+<%@include file="adminHeader.jsp" %>
 <h2>Add New Video</h2>
+<p class="error" id="error">${addVideosError}</p>
 <hr>
 
 
@@ -61,7 +69,7 @@
 
 	<div class="field">
 		<label for="name" class="label"> Name</label>
- 		<input type="text" class="input" name="name" id="name"/>
+ 		<input type="text" class="input" name="name" id="name" required/>
 	</div>
 
 	<div class="field">
@@ -71,7 +79,7 @@
 		
 	<div class="field">
 	<label for="price" class="label">Price</label>
-		<input type="text" class="input" name="price" id="price"/>
+		<input type="text" class="input" name="price" id="price" required/>
 </div>
 	
 	<div class="field">

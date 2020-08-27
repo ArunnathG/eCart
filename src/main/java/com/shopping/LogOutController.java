@@ -17,7 +17,15 @@ public class LogOutController {
 	{
 		HttpSession session = request.getSession(false);
 		
-		session.removeAttribute("registerUserid");
+		if(session.getAttribute("userid") != null) {
+			session.removeAttribute("userid");
+		}
+		
+
+		if(session.getAttribute("adminid") != null) {
+			session.removeAttribute("adminid");
+		}
+		
 		response.sendRedirect("./login");
 	}
 }

@@ -43,6 +43,15 @@
 </head>
 <body>
 
+<% 	Integer i = 0; 
+	response.setHeader("Cache-Control", "no-cache , no-store, must-revalidate" );
+	if(session.getAttribute("userid") == null) {
+		response.sendRedirect("login");
+	}
+%>
+<% 	List<Orders> Orders = (List<Orders>) session.getAttribute("orders"); %>
+
+
 <hr>
 <a href="userhome">Home</a>
 
@@ -64,8 +73,6 @@
 		<label class="email" id="email">${registeremail}</label>
 	</section>
 
-<% 	Integer i = 0; %>
-<% 	List<Orders> Orders = (List<Orders>) session.getAttribute("orders"); %>
 
 	<h2>Your orders</h2>
 <%

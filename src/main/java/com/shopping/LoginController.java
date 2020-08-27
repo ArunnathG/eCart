@@ -46,8 +46,10 @@ public class LoginController
 				session.setAttribute("userid", userid);
 
 				response.sendRedirect("./userhome");
-			} else if((userid.equals("admin") & password.equals("admin"))) 
+			} else if((userid.equals("admin") & password.equals("admin@123"))) 
 			{
+				session.setAttribute("adminid", userid);
+
 				response.sendRedirect("./adminhome");
 			}
 			else {

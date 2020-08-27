@@ -54,6 +54,12 @@
 </head>
 <body>
 
+<% 
+	response.setHeader("Cache-Control", "no-cache , no-store, must-revalidate" );
+	if(session.getAttribute("userid") == null) {
+		response.sendRedirect("login");
+	}
+%>
 <hr>
 <a href="userhome">Home</a>
 

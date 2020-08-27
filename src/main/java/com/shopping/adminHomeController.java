@@ -36,12 +36,11 @@ public class adminHomeController {
 				session.setAttribute("videos", videos);
 				response.sendRedirect("adminhome");
 			}
-		} else {
-			List<Videos> videos =(List<Videos>) session.getAttribute("videos");
-			session.setAttribute("videos", videos);
-			return "adminHome.jsp";
-		}
-		return null;
+		} 
+		
+		List<Videos> videos =(List<Videos>) session.getAttribute("videos");
+		session.setAttribute("videos", videos);
+		return "adminHome.jsp";
 		
 	}
 	
@@ -56,24 +55,85 @@ public class adminHomeController {
 	public void addVideo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
 	{
 		String name = request.getParameter("name");
-		String description = request.getParameter("description");
+		
 		int price = Integer.parseInt(request.getParameter("price"));
 		
-		HttpSession session = request.getSession();
-		System.out.println("beforeee"+ session.getAttribute("videos"));
-		if( session.getAttribute("videos") == null || ((List<Videos>) session.getAttribute("videos")).size() == 0)  {
-			
-			List<Videos> video = new ArrayList<Videos>();
-			video.add(new Videos(1, description, name, price) );
-			session.setAttribute("videos", video);
-		} else {
-			List<Videos> videos =(List<Videos>) session.getAttribute("videos");
-			int id = videos.get(videos.size() - 1).getId();
-			videos.add(new Videos( id+1, description, name, price) );
-			session.setAttribute("videos", videos);
+		String fieldError = validateAddVideo(name, price);
+	
 		
+		HttpSession session = request.getSession();
+		if(fieldError == "")
+		{
+			if( session.getAttribute("videos") == null || ((List<Videos>) session.getAttribute("videos")).size() == 0)  {
+				
+				List<Videos> video = new ArrayList<Videos>();
+				if(request.getParameter("description") != null) 
+				{
+					video.add(new Videos(1, "", name, price) );
+				} else {
+					String description = request.getParameter("description");
+					video.add(new Videos(1, description, name, price) );
+				}
+			
+				session.setAttribute("videos", video);
+				response.sendRedirect("./adminhome");
+			} else {
+				List<Videos> videos =(List<Videos>) session.getAttribute("videos");
+				
+				String Error = videoCheck(videos, name);
+				
+				if(Error == "")
+				{
+					int id = videos.get(videos.size() - 1).getId();
+					if(request.getParameter("description") != null) 
+					{
+						videos.add(new Videos(id+1, "", name, price) );
+					} else {
+						String description = request.getParameter("description");
+						videos.add(new Videos( id+1,description, name, price) );
+					}
+					
+					session.setAttribute("videos", videos);
+					response.sendRedirect("./adminhome");
+				} else {
+					request.setAttribute("addVideosError", Error);
+					request.getRequestDispatcher("addVideos.jsp").forward(request, response);
+				}
+			
+			}
+		} else {
+			
+			request.setAttribute("addVideosError", fieldError);
+			request.getRequestDispatcher("addVideos.jsp").forward(request, response);
 		}
-		response.sendRedirect("./adminhome");
+		
+		
+	}
+	
+	private String validateAddVideo(String name, int price)
+	{
+		String error = "";
+		
+		if( name.length() < 5 || price==0 || Integer.toString(price).length() > 4 )
+		{
+			error = "invalid data";
+		}
+	
+		return error;
+	}
+	
+	private String videoCheck(List<Videos> videos, String name)
+	{
+		String error = "";
+		System.out.println("theeee" + name);
+		for(int i=0; i < videos.size(); i++) {
+		
+			if(videos.get(i).getName().contains(name) ) {
+				System.out.println("theeee same");
+				return 	error = "invalid data";
+			}
+		}
+		return error;
 	}
 	
 	
