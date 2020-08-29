@@ -69,7 +69,7 @@
 		<hr>
 		
 	<section class="sectionBackground">
-		<label class="userName" id="userName">${registerUserid}</label>
+		<label class="userName" id="userName">${userid}</label>
 		<label class="email" id="email">${registeremail}</label>
 	</section>
 

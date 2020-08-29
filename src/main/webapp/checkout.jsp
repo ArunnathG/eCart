@@ -86,7 +86,7 @@ function removeFromCart(pageURL)
 <% 	Integer i = 0; %>
 <% 	List<CartItems> cart = (List<CartItems>) session.getAttribute("cartItems"); %>
 	<%
-	if (cart !=null && !cart.isEmpty()) 
+	if (cart !=null && !cart.isEmpty() ) 
 	{
 		%>
 		

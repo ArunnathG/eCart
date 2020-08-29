@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.shopping.model.Users;
 import com.shopping.model.Videos;
 
 
@@ -36,30 +37,43 @@ public class LoginController
 		String password = request.getParameter("password");
 		
 		HttpSession session = request.getSession();
-		
-		if (session != null) {
-			String registeredUserId = (String) session.getAttribute("registerUserid");
-			String registeredPassword = (String) session.getAttribute("registerPassword");
+		String loginError = "Invalid data";
 			
-			if((userid.equals(registeredUserId) & password.equals(registeredPassword))) {
-				
-				session.setAttribute("userid", userid);
-
-				response.sendRedirect("./userhome");
-			} else if((userid.equals("admin") & password.equals("admin@123"))) 
+			if((userid.equals("admin") & password.equals("admin@123"))) 
 			{
 				session.setAttribute("adminid", userid);
 
 				response.sendRedirect("./adminhome");
 			}
-			else {
-				String loginError = "Invalid data";
+			else if(session.getAttribute("users") != null)
+			{
+				List<Users> users =(List<Users>) session.getAttribute("users");
+				Boolean validUser = false;
+				
+				for(int i=0; i < users.size(); i++) {
+					
+					if(users.get(i).getUserName().contains(userid) & users.get(i).getPassword().contains(password) ) {
+						
+						validUser = true;
+					}
+				}
+				
+				if(validUser) 
+				{
+					session.setAttribute("userid", userid);
+
+					response.sendRedirect("./userhome");
+				} 
+				else {
+					
+					request.setAttribute("loginError", loginError);
+					request.getRequestDispatcher("login.jsp").forward(request, response);
+				}
+			} else {
 				request.setAttribute("loginError", loginError);
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 			}
-		}
-		
-		
+			
 	}
 	
 

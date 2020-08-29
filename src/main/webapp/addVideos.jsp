@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" isELIgnored="false"%>
+     <%@ taglib prefix = "c" uri = "http://java.sun.com/jstl/core_rt"%>
 <!DOCTYPE html>
 <html>
 <head>
+ <script src="<c:url value="/resources/js/jquery.min.js" />"></script>
 <style type="text/css">
     .formBackground {
 	    width: 70%;
@@ -51,6 +53,17 @@
 </head>
 <body>
 
+	<script  language="javascript" type="text/javascript">
+	$(document).ready(function () {
+		  //called when key is pressed in textbox
+		  $("#price").keypress(function (e) {
+		     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+		       
+		               return false;
+		    }
+		   });
+		});
+	</script>
 
 <% 
 	response.setHeader("Cache-Control", "no-cache , no-store, must-revalidate" );
@@ -79,7 +92,7 @@
 		
 	<div class="field">
 	<label for="price" class="label">Price</label>
-		<input type="text" class="input" name="price" id="price" required/>
+		<input type="text" class="input" name="price" id="price" maxlength="5" required/>
 </div>
 	
 	<div class="field">

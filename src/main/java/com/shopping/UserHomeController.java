@@ -38,6 +38,7 @@ public class UserHomeController {
 				
 				if(session.getAttribute("cartItems") == null) {
 					List<CartItems> cart = new ArrayList<CartItems>();
+					
 					cart.add(new CartItems(cartVideo, 1));
 					
 					session.setAttribute("cartItems", cart);
