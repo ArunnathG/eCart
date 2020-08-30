@@ -53,26 +53,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<% 
-	response.setHeader("Cache-Control", "no-cache , no-store, must-revalidate" );
-	if(session.getAttribute("userid") == null) {
-		response.sendRedirect("login");
-	}
-%>
-<hr>
-<a href="userhome">Home</a>
-
-<span>Basket: ${totalCount} video(s)
-</span>
-<a href="myaccount">My Account</a> <br/>
-
-<a href="checkout">Checkout</a> <br/>
- 
- <a href="logout">Logout</a>
-
-<hr>
-
+<%@include file="userHeader.jsp" %>
 <h3>Create Order</h3>
 <p>Please enter your delivery address</p>
 <hr>

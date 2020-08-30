@@ -35,7 +35,7 @@ public class RegistrationController {
 		String registerConfirmPassword = request.getParameter("confirmPassword");
 		
 		String Error = validateRegistration(registerEmail,registerConfirmPassword, registerPassword,  registerUserid);
-		System.out.println("errrr"+ Error);
+	
 		if(Error == "")
 		{
 			HttpSession session = request.getSession(false);
@@ -44,6 +44,7 @@ public class RegistrationController {
 				List<Users> users = new ArrayList<Users>();
 				users.add(new Users(registerUserid, registerPassword));
 				session.setAttribute("users", users);
+				session.setAttribute("registeremail", registerEmail);
 				response.sendRedirect("login");
 			} else {
 				List<Users> users =(List<Users>) session.getAttribute("users");

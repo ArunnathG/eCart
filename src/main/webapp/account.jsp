@@ -42,28 +42,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<% 	Integer i = 0; 
-	response.setHeader("Cache-Control", "no-cache , no-store, must-revalidate" );
-	if(session.getAttribute("userid") == null) {
-		response.sendRedirect("login");
-	}
-%>
+<%@include file="userHeader.jsp" %>
+<% 	Integer i = 0; %>
 <% 	List<Orders> Orders = (List<Orders>) session.getAttribute("orders"); %>
 
 
-<hr>
-<a href="userhome">Home</a>
-
-<span>Basket: ${totalCount} video(s)
-</span>
-<a href="myaccount">My Account</a> <br/>
-
-<a href="checkout">Checkout</a> <br/>
- 
- <a href="logout">Logout</a>
-
-<hr>
 
 		<h2>My Account</h2>
 		<hr>

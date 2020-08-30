@@ -66,13 +66,6 @@ function deleteVideo(pageURL) {
 
 </script>
 
-<% 
-	response.setHeader("Cache-Control", "no-cache , no-store, must-revalidate" );
-	if(session.getAttribute("adminid") == null) {
-		response.sendRedirect("login");
-	}
-%>
-
 
 <%@include file="adminHeader.jsp" %>
 

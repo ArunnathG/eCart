@@ -42,12 +42,6 @@
 </head>
 <body>
 
-<% 
-	response.setHeader("Cache-Control", "no-cache , no-store, must-revalidate" );
-	if(session.getAttribute("userid") == null) {
-		response.sendRedirect("login");
-	}
-%>
 
 <script language="javascript" type="text/javascript">
 
@@ -66,19 +60,9 @@ function removeFromCart(pageURL)
 	}
 </script>
 
+<%@include file="userHeader.jsp" %>
 
-<hr>
-<a href="userhome">Home</a>
 
-<span>Basket: ${totalCount} video(s)
-</span>
-<a href="myaccount">My Account</a> <br/>
-
-<a href="checkout">Checkout</a> <br/>
- 
- <a href="logout">Logout</a>
-
-<hr>
 
 <div class="tableBackground">
 <h2>Video Basket</h2>

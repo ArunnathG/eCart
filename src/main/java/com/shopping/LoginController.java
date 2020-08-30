@@ -10,9 +10,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.shopping.model.Users;
 import com.shopping.model.Videos;
@@ -22,11 +24,20 @@ import com.shopping.model.Videos;
 @Controller
 public class LoginController 
 {
+	@RequestMapping("/")
+	public RedirectView redirect(){
+
+		return new RedirectView("login");
+
+	}
+
 
 	@RequestMapping("/login")
-	public String login() 
+	public ModelAndView login() 
 	{
-		return "login.jsp";
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("login.jsp");
+		return mv;
 	}
 	
 	

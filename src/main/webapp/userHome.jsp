@@ -38,24 +38,11 @@ function addToCart(pageURL) {
 }
 
 </script>
-<hr>
-<a href="userhome">Home</a>
 
-<span>Basket: ${totalCount} video(s)
-</span>
-<a href="myaccount">My Account</a> <br/>
+<%@include file="userHeader.jsp" %>
 
-<a href="checkout">Checkout</a> <br/>
- 
- <a href="logout">Logout</a>
+<% 	Integer i = 0; %>
 
-<hr>
-<% 	Integer i = 0; 
-	response.setHeader("Cache-Control", "no-cache , no-store, must-revalidate" );
-	if(session.getAttribute("userid") == null) {
-		response.sendRedirect("login");
-	}
-%>
 <% 	List<Videos> Videos = (List<Videos>) session.getAttribute("videos"); %>
 <%
 	if (Videos !=null && !Videos.isEmpty()) 

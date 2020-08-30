@@ -125,11 +125,9 @@ public class adminHomeController {
 	private String videoCheck(List<Videos> videos, String name)
 	{
 		String error = "";
-		System.out.println("theeee" + name);
 		for(int i=0; i < videos.size(); i++) {
 		
 			if(videos.get(i).getName().contains(name) ) {
-				System.out.println("theeee same");
 				return 	error = "invalid data";
 			}
 		}

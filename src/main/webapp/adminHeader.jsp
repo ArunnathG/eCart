@@ -1,45 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" isELIgnored="false"%>
+     <%@ taglib prefix = "c" uri = "http://java.sun.com/jstl/core_rt"%>
 <!DOCTYPE html>
 <html>
 <head>
-  <style type="text/css">
-	    	
-			    ul {
-			  list-style-type: none;
-			  margin: 0;
-			  padding: 0;
-			  overflow: hidden;
-			  background-color: #333;
-			}
-	
-			li {
-			  float: left;
-			}
-			
-			li a {
-			  display: block;
-			  color: white;
-			  text-align: center;
-			  padding: 14px 16px;
-			  text-decoration: none;
-			}
-	
-			li a:hover:not(.active) {
-			  background-color: #111;
-			}
-			    
-	</style>
+  <link href="<c:url value="/resources/css/menuBar.css" />"  type="text/css" rel="stylesheet" />
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
 
+<% 
+	response.setHeader("Cache-Control", "no-cache , no-store, must-revalidate" );
+	if(session.getAttribute("adminid") == null) {
+		response.sendRedirect("login");
+	}
+%>
 
 
 <ul>
-  <li><a href="adminhome">Home</a></li>
-  <li><a href="logout">Logout</a></li>
+  <li><a id="home" href="adminhome">Home</a></li>
+  <li><a id="logOut" href="logout">Logout</a></li>
 </ul>
 
 </body>
